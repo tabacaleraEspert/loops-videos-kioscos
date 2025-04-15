@@ -18,6 +18,7 @@
       width: 100%;
       height: 100%;
       border: none;
+      z-index: 1;
     }
     #touchBlocker {
       position: fixed;
@@ -26,7 +27,7 @@
       width: 100vw;
       height: 100vh;
       z-index: 9999;
-      pointer-events: none;
+      pointer-events: all;
     }
   </style>
 </head>
@@ -37,7 +38,7 @@
     allowfullscreen>
   </iframe>
 
-  <!-- Overlay para bloquear interacción táctil -->
+  <!-- Overlay que bloquea la interacción -->
   <div id="touchBlocker"></div>
 </body>
 </html>
