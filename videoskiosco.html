@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Videos en Loop</title>
+</head>
+<body style="margin:0;padding:0;overflow:hidden;background-color:black;">
+    <video id="videoPlayer" autoplay muted playsinline style="width:100%;height:100%;object-fit:cover;">
+        <source src="" type="video/mp4">
+    </video>
+
+    <script>
+        const videoUrls = [
+            "https://drive.google.com/drive/u/0/folders/1EJ4t1jRrm95bq5KWxVFlWPGsMo5Mb4R5",
+            "https://drive.google.com/drive/u/0/folders/1EJ4t1jRrm95bq5KWxVFlWPGsMo5Mb4R5"
+        ];
+
+        let currentVideo = 0;
+        const videoPlayer = document.getElementById("videoPlayer");
+
+        function playVideo(index) {
+            videoPlayer.src = videoUrls[index];
+            videoPlayer.load();
+            videoPlayer.play();
+        }
+
+        videoPlayer.addEventListener("ended", () => {
+            currentVideo = (currentVideo + 1) % videoUrls.length;
+            playVideo(currentVideo);
+        });
+
+        // Comienza a reproducir el primer video automáticamente
+        playVideo(currentVideo);
+    </script>
+</body>
+</html>
