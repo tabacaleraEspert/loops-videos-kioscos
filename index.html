@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Loop YouTube Playlist</title>
+  <title>Loop Videos Bunny.net</title>
   <style>
     html, body {
       margin: 0;
@@ -11,13 +11,13 @@
       overflow: hidden;
       background-color: black;
     }
-    iframe {
+    video {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      border: none;
+      object-fit: cover;
       z-index: 1;
     }
     #touchBlocker {
@@ -32,13 +32,30 @@
   </style>
 </head>
 <body>
-  <iframe 
-    src="https://www.youtube.com/embed?listType=playlist&list=PLKiNFsrBfgJcJGfnSv6zCikBSvqq7YzLW&autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0"
-    allow="autoplay; encrypted-media"
-    allowfullscreen>
-  </iframe>
 
-  <!-- Overlay que bloquea la interacción -->
+  <video id="videoPlayer" autoplay muted playsinline></video>
+
   <div id="touchBlocker"></div>
+
+  <script>
+    const videos = [
+      "https://iframe.mediadelivery.net/play/413613/0e7baa2b-7689-491b-bebc-338761ac9f7c",
+      "https://iframe.mediadelivery.net/play/413613/755de82d-44ca-41ea-804e-0e9ee2d2b261"
+    ];
+
+    let currentVideo = 0;
+    const videoPlayer = document.getElementById('videoPlayer');
+
+    function loadNextVideo() {
+      videoPlayer.src = videos[currentVideo];
+      videoPlayer.play();
+      currentVideo = (currentVideo + 1) % videos.length;
+    }
+
+    videoPlayer.addEventListener('ended', loadNextVideo);
+
+    window.onload = loadNextVideo;
+  </script>
+
 </body>
 </html>
