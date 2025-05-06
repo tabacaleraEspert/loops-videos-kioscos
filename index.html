@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Video + Imagen en Loop</title>
+  <title>Video + Imagen en Loop Aleatorio</title>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
     html, body { margin: 0; padding: 0; height: 100%; background: black; overflow: hidden; }
@@ -32,23 +32,56 @@
   <div id="touchBlocker"></div>
 
   <script>
-    const videos = [
-      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/8aa7e192-6a99-43ca-a2cd-b8b03134968e/playlist.m3u8" },
-      { type: "image", url: "./Melbourne-banners-web-curvas.jpg", duration: 10000 }, // 10 segundos
-      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/99f13b5c-fcb4-4f8f-b076-9c8d1fb2115d/playlist.m3u8" },
-      { type: "image", url: "./Melbourne-banners-web-curvass.jpg", duration: 8000 },  // 8 segundos
-      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/d72f49e4-f5be-40e0-81f0-53eec071f704/playlist.m3u8" },
-      { type: "image", url: "./Melbourne-banners-web-curvass.jpg", duration: 8000 }  // 8 segundos
+    let videos = [
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/09227af1-02ed-46c3-89cf-abdb8675b346/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/5b9cc803-6140-4b6f-9ec3-3bc0ed1f81a5/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/5bb685a0-1863-4c1b-aef9-840c63344958/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/0f2b4b34-7b43-4ac2-b9f5-f68bad0717c5/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/b0f46f49-4bae-47bf-ae69-5ee13a304512/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/d2833487-5c7f-4a56-b163-e88af5b566c3/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/f40478a3-5fc1-4106-b145-8458debcd958/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/ea8861b3-6daf-4a79-b69c-4462d0a20125/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/f80e8b7f-53f5-4a5d-8662-9e01f3fe1569/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/f15d91d8-8f34-412c-9079-383dc0867175/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/6e9d5431-db65-4052-8867-6c53ff6823bf/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/c1fb9213-6d3b-4376-96bd-dc5ed3dda0ba/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/00e37b3e-42a7-4c53-9433-08b065b1f8d0/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/59b4a6fd-d46a-4685-9391-d5a8a7b3b0e2/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/3cd41f65-ac18-4868-9faf-170c98be5118/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/e4c67b8d-f73d-4f12-a1d1-aa5aa7196761/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/5d1bf07e-32b6-4863-bd43-6ccc755f0612/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/08929c7a-84c9-4f9a-9b8c-87480920edde/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/f36b770c-de5b-4411-af4b-3c0063480fe1/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/a6fa623f-3225-43ca-9679-22f9f8818a93/playlist.m3u8" },
+      { type: "video", url: "https://vz-f65e6dd2-d7c.b-cdn.net/3fe71e53-2015-40d3-b9e3-501dc4c899c9/playlist.m3u8" }
     ];
 
     let current = 0;
     const video = document.getElementById('videoPlayer');
     const image = document.getElementById('imagePlayer');
 
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    let lastVideoUrl = null;
+    videos = shuffle(videos);
+
     function playNext() {
       const item = videos[current];
 
-      // Reproducir imagen
+      if (item.url === lastVideoUrl) {
+        current = (current + 1) % videos.length;
+        playNext();
+        return;
+      }
+
+      lastVideoUrl = item.url;
+
       if (item.type === "image") {
         video.style.display = "none";
         image.style.display = "block";
@@ -56,12 +89,10 @@
 
         setTimeout(() => {
           current = (current + 1) % videos.length;
+          if (current === 0) videos = shuffle(videos);
           playNext();
         }, item.duration);
-      }
-
-      // Reproducir video
-      else if (item.type === "video") {
+      } else if (item.type === "video") {
         image.style.display = "none";
         video.style.display = "block";
 
@@ -77,12 +108,12 @@
 
         video.onended = () => {
           current = (current + 1) % videos.length;
+          if (current === 0) videos = shuffle(videos);
           playNext();
         };
       }
     }
 
-    // Comenzar reproducción en loop
     window.onload = playNext;
   </script>
 </body>
